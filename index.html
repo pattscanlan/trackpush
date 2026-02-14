@@ -1219,7 +1219,7 @@ function simplifyTrack(points, maxPoints) {
 
 function generateLink() {
   if (waypoints.length < 2) return;
-  const encoded = encodePolyline(waypoints);
+  const encoded = encodeURIComponent(encodePolyline(waypoints));
   const url = window.location.origin + window.location.pathname + '#follow/' + encoded;
   document.getElementById('shareUrl').value = url;
   document.getElementById('shareOutput').classList.remove('hidden');
@@ -1556,7 +1556,7 @@ document.addEventListener('click', function(e) {
 function checkHash() {
   const hash = window.location.hash;
   if (hash.startsWith('#follow/')) {
-    const encoded = hash.slice(8);
+    const encoded = decodeURIComponent(hash.slice(8));
     try {
       const coords = decodePolyline(encoded);
       if (coords.length >= 2) {
